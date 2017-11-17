@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+
+import rospy
+from std_msgs.msg import String
+
+spam_str = "x" * 10000  # 1B * 10000 + 37B overhead = 10.037KB
+
+def talker():
+    rospy.init_node('talker', anonymous=True)
+    rate = rospy.Rate(5)  # hz
+    
+    while not rospy.is_shutdown():
+        rospy.loginfo(spam_str)
+        rate.sleep()
+
+if __name__ == '__main__':
+    try:
+        talker()
+    except rospy.ROSInterruptException:
+        pass
